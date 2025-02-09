@@ -12,8 +12,6 @@ player = NodePath("Player")
 enemy = NodePath("Enemy")
 
 [node name="CaveGenerator" parent="." instance=ExtResource("1_l1pu6")]
-WallColor = Color(0, 0, 0, 1)
-GroundColor = Color(1, 1, 1, 1)
 
 [node name="Player" parent="." node_paths=PackedStringArray("caveGenerator") instance=ExtResource("2_hbwqw")]
 position = Vector2(565, 328)

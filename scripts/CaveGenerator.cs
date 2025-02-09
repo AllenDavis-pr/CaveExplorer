@@ -6,7 +6,7 @@ public partial class CaveGenerator : Node
 {
 	public const int WIDTH = 160;
 	public const int HEIGHT = 120; 
-	public const int CELL_SIZE = 35;
+	public const int CELL_SIZE = 32;
 
 	 // 2D list to represent the cave grid, this is public so other scripts can access it
     public List<List<bool>> Grid = new List<List<bool>>();
@@ -15,6 +15,8 @@ public partial class CaveGenerator : Node
 	private Random random = new Random();
 	[Export] public Color WallColor { get; set; } = new Color("#3B2F2F"); // Dark Brown
     [Export] public Color GroundColor { get; set; } = new Color("#A4A4A4"); // Light Gray
+    [Export] public TileMapLayer tileMap { get; set; }
+
 
 	private void InitialiseGrid()
 	{
@@ -94,35 +96,14 @@ public partial class CaveGenerator : Node
 
 	private void DrawCave()
     {
-        // Visualize the cave using ColorRect nodes
+        // Visualize the cave using Tilemap nodes
         for (int x = 0; x < WIDTH; x++)
         {
             for (int y = 0; y < HEIGHT; y++)
             {
                 bool isWall = Grid[x][y];
-                ColorRect cell = new ColorRect();
-                cell.Size = new Vector2(CELL_SIZE, CELL_SIZE);
-                cell.Position = new Vector2(x * CELL_SIZE, y * CELL_SIZE);
-                cell.Color = isWall ? WallColor : GroundColor;
-
-                AddChild(cell); // Add the cell to the scene tree
-
-                if (isWall)
-                {
-                    StaticBody2D wallBody = new StaticBody2D();
-                    CollisionShape2D collisionShape = new CollisionShape2D();
-                    RectangleShape2D rectangleShape = new RectangleShape2D();
-
-                    rectangleShape.Size = new Vector2(CELL_SIZE, CELL_SIZE);
-                    collisionShape.Shape = rectangleShape;
-                    collisionShape.Position = new Vector2(CELL_SIZE / 2, CELL_SIZE / 2);
-
-                    wallBody.AddChild(collisionShape);
-                    wallBody.Position = new Vector2(x * CELL_SIZE, y * CELL_SIZE);
-
-                    AddChild(wallBody); // Add the collision body to the scene tree
-                }
-
+                Vector2I atlasCoords = isWall ? new Vector2I(0, 0) : new Vector2I(1, 0);
+                tileMap.SetCell(new Vector2I(x, y), 0, atlasCoords) ;
             }
         }
     }

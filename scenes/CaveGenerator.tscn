@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://42ff5168376x"]
+[gd_scene load_steps=5 format=3 uid="uid://42ff5168376x"]
 
 [ext_resource type="Script" path="res://scripts/CaveGenerator.cs" id="1_srulm"]
+[ext_resource type="Texture2D" uid="uid://j4bqgvy2jnug" path="res://assets/art/wallnground.png" id="2_dgpt1"]
 
-[node name="CaveGenerator" type="Node2D"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_23lus"]
+texture = ExtResource("2_dgpt1")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_bcaah"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_23lus")
+
+[node name="CaveGenerator" type="Node2D" node_paths=PackedStringArray("tileMap")]
 script = ExtResource("1_srulm")
+tileMap = NodePath("TileMapLayer")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_bcaah")
