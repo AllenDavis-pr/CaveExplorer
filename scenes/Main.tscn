@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx6utiyrwyiw5"]
+
+[ext_resource type="Script" path="res://scripts/Main.cs" id="1_aydpn"]
+[ext_resource type="PackedScene" uid="uid://42ff5168376x" path="res://scenes/CaveGenerator.tscn" id="1_l1pu6"]
+[ext_resource type="PackedScene" uid="uid://do3vaykqvrswd" path="res://scenes/Player.tscn" id="2_hbwqw"]
+[ext_resource type="PackedScene" uid="uid://dn14lht1wd2my" path="res://scenes/Enemy.tscn" id="4_4ia7f"]
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("caveGenerator", "player", "enemy")]
+script = ExtResource("1_aydpn")
+caveGenerator = NodePath("CaveGenerator")
+player = NodePath("Player")
+enemy = NodePath("Enemy")
+
+[node name="CaveGenerator" parent="." instance=ExtResource("1_l1pu6")]
+WallColor = Color(0, 0, 0, 1)
+GroundColor = Color(1, 1, 1, 1)
+
+[node name="Player" parent="." node_paths=PackedStringArray("caveGenerator") instance=ExtResource("2_hbwqw")]
+position = Vector2(565, 328)
+caveGenerator = NodePath("../CaveGenerator")
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("caveGenerator", "player") instance=ExtResource("4_4ia7f")]
+position = Vector2(-3, 2)
+caveGenerator = NodePath("../CaveGenerator")
+player = NodePath("../Player")

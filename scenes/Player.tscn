@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://do3vaykqvrswd"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_j3rhi"]
+[ext_resource type="FontFile" uid="uid://bxrthsqfvq1qr" path="res://assets/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="1_uksd4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0idje"]
+
+[sub_resource type="Theme" id="Theme_6nrve"]
+default_font = ExtResource("1_uksd4")
+default_font_size = 60
+Label/styles/normal = SubResource("StyleBoxEmpty_0idje")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2327m"]
+size = Vector2(25.5, 22)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_j3rhi")
+speed = 225
+
+[node name="Label" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -39.0
+offset_right = 18.0
+offset_bottom = 35.0
+theme = SubResource("Theme_6nrve")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "@"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_2327m")
