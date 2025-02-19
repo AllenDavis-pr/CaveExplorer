@@ -55,7 +55,7 @@ public partial class Enemy : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        MoveAlongPath(delta);
+        // MoveAlongPath(delta);
 		gridPosition = (Vector2I)(Position / CaveGenerator.CELL_SIZE);
     }
 
@@ -70,7 +70,6 @@ public partial class Enemy : CharacterBody2D
         if (Position.DistanceTo(targetPosition) < 5.0f) 
         {
             Position = targetPosition;
-            // currentPathIndex++;
 
             if (currentPathIndex >= worldPath.Count)
             {
