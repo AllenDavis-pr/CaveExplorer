@@ -1,33 +1,193 @@
-[gd_scene load_steps=6 format=3 uid="uid://do3vaykqvrswd"]
+[gd_scene load_steps=26 format=3 uid="uid://do3vaykqvrswd"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_j3rhi"]
-[ext_resource type="FontFile" uid="uid://bxrthsqfvq1qr" path="res://assets/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="1_uksd4"]
+[ext_resource type="Texture2D" uid="uid://bqjh8lshim7i0" path="res://assets/art/ducky_2_spritesheet.png" id="3_m5e1m"]
+[ext_resource type="Script" path="res://scenes/Gun.cs" id="3_mw4lc"]
+[ext_resource type="Texture2D" uid="uid://cdpp06u0xw7di" path="res://assets/art/Guns/SawedOffShotgun.png" id="4_dql4v"]
+[ext_resource type="PackedScene" uid="uid://b7bx4lqs7tghj" path="res://scenes/Bullet.tscn" id="4_wo3mg"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0idje"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aoxil"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="Theme" id="Theme_6nrve"]
-default_font = ExtResource("1_uksd4")
-default_font_size = 60
-Label/styles/normal = SubResource("StyleBoxEmpty_0idje")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cuxkp"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2327m"]
-size = Vector2(25.5, 22)
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5426"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrd1e"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fce2l"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h33he"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqk3i"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xc31"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpho5"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scwqm"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vy7j"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sldr5"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhmxe"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ghwa"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yfrp"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jsb5"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shnqy"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1rwt"]
+atlas = ExtResource("3_m5e1m")
+region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c4l2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aoxil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cuxkp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5426")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrd1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fce2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h33he")
+}],
+"loop": true,
+"name": &"idle_bounce",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqk3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xc31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpho5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scwqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vy7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sldr5")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhmxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ghwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yfrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jsb5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shnqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1rwt")
+}],
+"loop": true,
+"name": &"walk_bounce",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_feqac"]
+radius = 17.0294
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_j3rhi")
 speed = 225
 
-[node name="Label" type="Label" parent="."]
-offset_left = -18.0
-offset_top = -39.0
-offset_right = 18.0
-offset_bottom = 35.0
-theme = SubResource("Theme_6nrve")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "@"
-
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -4)
+scale = Vector2(1.78125, 1.78125)
+sprite_frames = SubResource("SpriteFrames_c4l2p")
+animation = &"walk_bounce"
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_2327m")
+position = Vector2(-4, 13)
+shape = SubResource("CircleShape2D_feqac")
+metadata/_edit_lock_ = true
+
+[node name="Gun" type="Node2D" parent="." node_paths=PackedStringArray("Muzzle")]
+position = Vector2(0, 10)
+script = ExtResource("3_mw4lc")
+BulletScene = ExtResource("4_wo3mg")
+Muzzle = NodePath("Muzzle")
+
+[node name="M92" type="Sprite2D" parent="Gun"]
+position = Vector2(7, 1)
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("4_dql4v")
+
+[node name="Muzzle" type="Node2D" parent="Gun"]
+position = Vector2(25, -2.5)

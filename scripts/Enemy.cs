@@ -8,7 +8,6 @@ public partial class Enemy : CharacterBody2D
     private CaveGenerator caveGenerator { get; set; }
 
     
-    [Export]
     private Player player { get; set; }
 
     private Pathfinder pathfinder;
@@ -22,8 +21,8 @@ public partial class Enemy : CharacterBody2D
 
     public override void _Ready()
     {
-        Timer myTimer = GetNode<Timer>("Timer");
-        myTimer.Timeout += () => Timeout();
+        Timer pathTimeout = GetNode<Timer>("PathTimer");
+        pathTimeout.Timeout += () => PathTimeout();
 
         // Initialize the pathfinder with the cave grid
         pathfinder = new Pathfinder(caveGenerator.Grid, CaveGenerator.WIDTH, CaveGenerator.HEIGHT, CaveGenerator.CELL_SIZE);
@@ -55,7 +54,7 @@ public partial class Enemy : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        // MoveAlongPath(delta);
+        MoveAlongPath(delta);
 		gridPosition = (Vector2I)(Position / CaveGenerator.CELL_SIZE);
     }
 
@@ -85,7 +84,7 @@ public partial class Enemy : CharacterBody2D
 
     }
 
-    public void Timeout()
+    public void PathTimeout()
     {
         gridPath = pathfinder.FindPath(gridPosition, player.GetGridPosition());
 
@@ -104,8 +103,18 @@ public partial class Enemy : CharacterBody2D
         UpdatePosition();
     }
 
+    public void SetCaveGenerator(CaveGenerator gen)
+    {
+        caveGenerator = gen;
+    }
+
     public void UpdatePosition()
     {
         Position = new Vector2(gridPosition.X * CaveGenerator.CELL_SIZE, gridPosition.Y * CaveGenerator.CELL_SIZE);
+    }
+
+    public void SetPlayerRef(Player aplayer)
+    {
+        player = aplayer;
     }
 }
