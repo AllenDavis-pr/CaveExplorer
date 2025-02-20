@@ -7,19 +7,11 @@ public partial class Player : CharacterBody2D
 	[Export]
 	private CaveGenerator caveGenerator { get; set; }
 
-		
-	private AnimatedSprite2D sprite { get; set; }
 
 	[Export]
 	private int speed = 40;
 
 	private Vector2I gridPosition;
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-	}
 
     public override void _PhysicsProcess(double delta)
     {
@@ -30,24 +22,6 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 		gridPosition = (Vector2I)(Position / CaveGenerator.CELL_SIZE);
 
-    }
-
-	public override void _Process(double delta)
-    {
-		if (Velocity == Vector2.Zero)
-		{
-			sprite.Play("idle_bounce");
-		}
-		else
-		{
-			sprite.Play("walk_bounce");
-		}
-
-
-		if (GetGlobalMousePosition().X < GlobalPosition.X)
-			sprite.FlipH = true;
-		else
-			sprite.FlipH = false;
     }
 
     public void UpdatePosition()
@@ -65,4 +39,16 @@ public partial class Player : CharacterBody2D
 	{
 		return gridPosition;
 	}
+
+    public void BulletCollidedWithTilemap(Vector2 position, Vector2 normal)
+    {
+		// bool xValid = Mathf.Abs(normal.X) == 1 || normal.X == 0;
+		// bool yValid = Mathf.Abs(normal.Y) == 1 || normal.Y == 0;
+
+		if (true)
+		{
+			Vector2I tileGridPosition = (Vector2I)(position / CaveGenerator.CELL_SIZE);
+			caveGenerator.DestroyTile(tileGridPosition - (Vector2I)normal);
+		}
+    } 
 }

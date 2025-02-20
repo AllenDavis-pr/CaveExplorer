@@ -115,7 +115,6 @@ public partial class CaveGenerator : Node
 	}
 
 
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -124,8 +123,10 @@ public partial class CaveGenerator : Node
         DrawCave();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void DestroyTile(Vector2I tilePos)
+    {
+        tileMap.SetCell(tilePos, 0, new Vector2I(1, 0));
+        Grid[tilePos.X][tilePos.Y] = false;
+    }
+
 }

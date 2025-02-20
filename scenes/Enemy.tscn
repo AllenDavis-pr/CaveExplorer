@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dn14lht1wd2my"]
+[gd_scene load_steps=5 format=3 uid="uid://dn14lht1wd2my"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_ofn8l"]
 [ext_resource type="Texture2D" uid="uid://bls3q22svnhv3" path="res://assets/art/square.png" id="2_qvr33"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chmke"]
 size = Vector2(28, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwijr"]
+size = Vector2(36, 36)
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_ofn8l")
@@ -19,3 +22,8 @@ shape = SubResource("RectangleShape2D_chmke")
 [node name="PathTimer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="BulletDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector"]
+shape = SubResource("RectangleShape2D_rwijr")

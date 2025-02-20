@@ -40,7 +40,6 @@ public partial class EnemyGenerator : Node
 
             // Set enemy position
             Vector2I enemyPosition = new Vector2I(x2, y2);
-			GD.Print("Set posiitonto ", enemyPosition, caveGenerator.IsWall(x2, y2));
             newEnemy.SetGridPosition(enemyPosition);
         }
     }

@@ -22,6 +22,9 @@ public partial class Enemy : CharacterBody2D
     public override void _Ready()
     {
         Timer pathTimeout = GetNode<Timer>("PathTimer");
+        Area2D bulletDetector = GetNode<Area2D>("BulletDetector");
+
+        bulletDetector.BodyEntered += BulletDetectorBodyEntered;
         pathTimeout.Timeout += () => PathTimeout();
 
         // Initialize the pathfinder with the cave grid
@@ -95,6 +98,15 @@ public partial class Enemy : CharacterBody2D
         }
 
         QueueRedraw(); // Redraw to visualize the updated path
+    }
+
+    public void BulletDetectorBodyEntered(Node2D body)
+    {
+        if (body is Bullet)
+        {
+            body.QueueFree();
+            QueueFree();
+        }
     }
 
     public void SetGridPosition(Vector2I pos)
