@@ -13,6 +13,16 @@ public partial class Player : CharacterBody2D
 
 	private Vector2I gridPosition;
 
+	private Sprite2D sprite;
+	public int treasuresFound;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+		sprite = GetNode<Sprite2D>("Body");
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
@@ -21,6 +31,17 @@ public partial class Player : CharacterBody2D
 		Velocity = direction * speed;
 		MoveAndSlide();
 		gridPosition = (Vector2I)(Position / CaveGenerator.CELL_SIZE);
+
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+		if (GetGlobalMousePosition().X < GlobalPosition.X)
+            sprite.Scale = new Vector2(-1, 1);
+		else
+            sprite.Scale = new Vector2(1, 1);
 
     }
 
@@ -42,9 +63,6 @@ public partial class Player : CharacterBody2D
 
     public void BulletCollidedWithTilemap(Vector2 position, Vector2 normal)
     {
-		// bool xValid = Mathf.Abs(normal.X) == 1 || normal.X == 0;
-		// bool yValid = Mathf.Abs(normal.Y) == 1 || normal.Y == 0;
-
 		if (true)
 		{
 			Vector2I tileGridPosition = (Vector2I)(position / CaveGenerator.CELL_SIZE);

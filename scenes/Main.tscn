@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bx6utiyrwyiw5"]
+[gd_scene load_steps=11 format=3 uid="uid://bx6utiyrwyiw5"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_aydpn"]
 [ext_resource type="PackedScene" uid="uid://42ff5168376x" path="res://scenes/CaveGenerator.tscn" id="1_l1pu6"]
 [ext_resource type="PackedScene" uid="uid://do3vaykqvrswd" path="res://scenes/Player.tscn" id="2_hbwqw"]
 [ext_resource type="PackedScene" uid="uid://dn14lht1wd2my" path="res://scenes/Enemy.tscn" id="4_4ia7f"]
-[ext_resource type="Script" path="res://scenes/EnemyGenerator.cs" id="5_42xsj"]
+[ext_resource type="Script" path="res://scripts/EnemyGenerator.cs" id="5_42xsj"]
+[ext_resource type="Script" path="res://scenes/TreasureGenerator.cs" id="6_7au2r"]
+[ext_resource type="PackedScene" uid="uid://b3a5m5qtccchf" path="res://scenes/Treasure.tscn" id="7_ho4mp"]
+[ext_resource type="FontFile" uid="uid://cefm86mf5hjvv" path="res://assets/fonts/Courier_Prime/CourierPrime-Bold.ttf" id="8_qp2ys"]
+[ext_resource type="Script" path="res://scenes/TimerLabel.cs" id="9_0f2t4"]
+
+[sub_resource type="Theme" id="Theme_hovpi"]
+default_font = ExtResource("8_qp2ys")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("caveGenerator", "player")]
 script = ExtResource("1_aydpn")
@@ -17,8 +24,42 @@ player = NodePath("Player")
 position = Vector2(565, 328)
 caveGenerator = NodePath("../CaveGenerator")
 
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("caveGenerator", "player")]
+[node name="EnemyGenerator" type="Node" parent="." node_paths=PackedStringArray("caveGenerator", "player")]
 script = ExtResource("5_42xsj")
 enemyScene = ExtResource("4_4ia7f")
 caveGenerator = NodePath("../CaveGenerator")
 player = NodePath("../Player")
+enemyCount = 1
+
+[node name="TreasureGenerator" type="Node" parent="." node_paths=PackedStringArray("caveGenerator")]
+script = ExtResource("6_7au2r")
+treasureScene = ExtResource("7_ho4mp")
+caveGenerator = NodePath("../CaveGenerator")
+treasureCount = 100
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1138.0
+offset_bottom = 648.0
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 12.43
+offset_right = 40.0
+offset_bottom = 55.43
+grow_horizontal = 2
+theme = SubResource("Theme_hovpi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "9:59"
+script = ExtResource("9_0f2t4")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Control/TimerLabel"]
+autostart = true

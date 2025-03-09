@@ -27,7 +27,7 @@ public partial class Enemy : CharacterBody2D
         bulletDetector.BodyEntered += BulletDetectorBodyEntered;
         pathTimeout.Timeout += () => PathTimeout();
 
-        // Initialize the pathfinder with the cave grid
+        // Initialise the pathfinder with the cave grid
         pathfinder = new Pathfinder(caveGenerator.Grid, CaveGenerator.WIDTH, CaveGenerator.HEIGHT, CaveGenerator.CELL_SIZE);
     }
 
@@ -40,15 +40,17 @@ public partial class Enemy : CharacterBody2D
 
         for (int i = 0; i < gridPath.Count - 1; i++)
         {
+            // Subtract position vector to draw from the origin
             DrawLine(worldPath[i] - Position, worldPath[i + 1] - Position, Colors.Black, 2.0f);
         }
 
-         // Draw a square at each waypoint
+        // Draw a square at each waypoint
         float squareSize = 8.0f; // Adjust size as needed
         Vector2 halfSize = new Vector2(squareSize / 2, squareSize / 2);
 
         foreach (var point in worldPath)
         {
+            // Subtract position vector to draw from the origin
             Rect2 rect = new Rect2(point - Position - halfSize, new Vector2(squareSize, squareSize));
             DrawRect(rect, Colors.Red, filled: true);
         }
@@ -63,21 +65,15 @@ public partial class Enemy : CharacterBody2D
 
     private void MoveAlongPath(double delta)
     {
-        if (gridPath == null || gridPath.Count == 0 || currentPathIndex >= gridPath.Count)
+        if (gridPath == null || gridPath.Count == 0 )
             return;
 
-        Vector2 targetPosition = worldPath[currentPathIndex];
+        Vector2 targetPosition = worldPath[0];
         Vector2 direction = (targetPosition - Position).Normalized();
         Vector2 velocity = direction * speed;
         if (Position.DistanceTo(targetPosition) < 5.0f) 
         {
             Position = targetPosition;
-
-            if (currentPathIndex >= worldPath.Count)
-            {
-                velocity = Vector2.Zero; // Stop when the path ends
-                return;
-            }
         }
 
         Velocity = velocity;

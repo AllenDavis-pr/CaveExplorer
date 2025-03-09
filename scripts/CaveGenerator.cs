@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class CaveGenerator : Node
 {
+
 	public const int WIDTH = 160;
 	public const int HEIGHT = 120; 
 	public const int CELL_SIZE = 32;

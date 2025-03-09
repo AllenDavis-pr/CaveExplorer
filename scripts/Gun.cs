@@ -17,14 +17,12 @@ public partial class Gun : Node2D
 	{
 		LookAt(GetGlobalMousePosition());
 		RotationDegrees = Mathf.Wrap(RotationDegrees, 0, 360);
+
+    
 		if (RotationDegrees > 90 && RotationDegrees < 270)
-        {
-            Scale = new Vector2(Scale.X, -1);
-        }
+            Scale = new Vector2(1, -1);
         else
-        {
-            Scale = new Vector2(Scale.X, 1);
-        }
+            Scale = new Vector2(1, 1);
 
 		// Fire bullet when "fire" action is just pressed
         if (Input.IsActionJustPressed("fire") && BulletScene != null)
@@ -36,5 +34,6 @@ public partial class Gun : Node2D
 
             bulletInstance.CollidedWithTile += player.BulletCollidedWithTilemap;
         }
+        
 	}
 }

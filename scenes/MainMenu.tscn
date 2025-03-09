@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcojnybtwamf8"]
+
+[ext_resource type="Script" path="res://scenes/MainMenu.cs" id="1_14hg6"]
+[ext_resource type="FontFile" uid="uid://ee671jhrfhsf" path="res://assets/fonts/Courier_Prime/CourierPrime-Regular.ttf" id="1_ic7b2"]
+[ext_resource type="Texture2D" uid="uid://bls3q22svnhv3" path="res://assets/art/square.png" id="3_frkj0"]
+[ext_resource type="Texture2D" uid="uid://cdpp06u0xw7di" path="res://assets/art/Guns/SawedOffShotgun.png" id="6_cyyuy"]
+[ext_resource type="FontFile" uid="uid://cefm86mf5hjvv" path="res://assets/fonts/Courier_Prime/CourierPrime-Bold.ttf" id="7_fu611"]
+
+[sub_resource type="Theme" id="Theme_md58s"]
+default_font = ExtResource("1_ic7b2")
+
+[sub_resource type="Theme" id="Theme_83rup"]
+default_font = ExtResource("7_fu611")
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("playButton", "exitButton", "settingsButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_14hg6")
+playButton = NodePath("VBoxContainer/Play")
+exitButton = NodePath("VBoxContainer/Exit")
+settingsButton = NodePath("VBoxContainer/Settings")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 649.0
+color = Color(0.839216, 0.854902, 0.827451, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(3.44, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -574.44
+offset_top = -29.88
+offset_right = -79.095
+offset_bottom = 128.12
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_md58s")
+theme_override_font_sizes/font_size = 36
+text = "PLAY"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_md58s")
+theme_override_font_sizes/font_size = 36
+text = "EXIT"
+
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_md58s")
+theme_override_font_sizes/font_size = 36
+text = "SETTINGS"
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(284, 297)
+scale = Vector2(9.16, 9.16)
+metadata/_edit_group_ = true
+
+[node name="SpriteHolder" type="Sprite2D" parent="Player"]
+position = Vector2(-8.09756, 9.5)
+texture = ExtResource("3_frkj0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/SpriteHolder"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(10.8833, -6.32558)
+scale = Vector2(0.146875, 0.357649)
+texture = ExtResource("3_frkj0")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Player/SpriteHolder"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1.28333, -6.32558)
+scale = Vector2(0.146875, 0.357649)
+texture = ExtResource("3_frkj0")
+
+[node name="Gun" type="Node2D" parent="Player"]
+position = Vector2(0, 10)
+
+[node name="M92" type="Sprite2D" parent="Player/Gun"]
+position = Vector2(7, 1)
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("6_cyyuy")
+
+[node name="Muzzle" type="Node2D" parent="Player/Gun"]
+position = Vector2(31, -2)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -390.0
+offset_top = 50.405
+offset_right = 390.0
+offset_bottom = 168.175
+grow_horizontal = 2
+theme = SubResource("Theme_83rup")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "CAVE EXPLORER"

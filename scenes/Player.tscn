@@ -1,33 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://do3vaykqvrswd"]
+[gd_scene load_steps=10 format=3 uid="uid://do3vaykqvrswd"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_j3rhi"]
+[ext_resource type="Script" path="res://scripts/CameraController.cs" id="2_m7qcc"]
 [ext_resource type="Texture2D" uid="uid://bls3q22svnhv3" path="res://assets/art/square.png" id="2_xmx7q"]
-[ext_resource type="Script" path="res://scenes/Gun.cs" id="3_mw4lc"]
+[ext_resource type="Script" path="res://scripts/Gun.cs" id="3_mw4lc"]
 [ext_resource type="Texture2D" uid="uid://cdpp06u0xw7di" path="res://assets/art/Guns/SawedOffShotgun.png" id="4_dql4v"]
 [ext_resource type="PackedScene" uid="uid://b7bx4lqs7tghj" path="res://scenes/Bullet.tscn" id="4_wo3mg"]
+[ext_resource type="Script" path="res://scenes/PlayerInteract.cs" id="7_p1o3r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvjni"]
-size = Vector2(24, 25)
+size = Vector2(30, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hw47t"]
+size = Vector2(46, 44)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_j3rhi")
 speed = 225
 
 [node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_m7qcc")
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
 position = Vector2(-8.09756, 9.5)
-scale = Vector2(0.868903, 0.90625)
 texture = ExtResource("2_xmx7q")
 
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+[node name="Eye1" type="Sprite2D" parent="Body"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(10.8833, -6.32558)
 scale = Vector2(0.146875, 0.357649)
 texture = ExtResource("2_xmx7q")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+[node name="Eye2" type="Sprite2D" parent="Body"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(1.28333, -6.32558)
 scale = Vector2(0.146875, 0.357649)
@@ -36,7 +41,6 @@ texture = ExtResource("2_xmx7q")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, 9.5)
 shape = SubResource("RectangleShape2D_wvjni")
-metadata/_edit_lock_ = true
 
 [node name="Gun" type="Node2D" parent="." node_paths=PackedStringArray("Muzzle", "player")]
 position = Vector2(0, 10)
@@ -52,3 +56,13 @@ texture = ExtResource("4_dql4v")
 
 [node name="Muzzle" type="Node2D" parent="Gun"]
 position = Vector2(31, -2)
+
+[node name="PlayerInteract" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("7_p1o3r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerInteract"]
+position = Vector2(-8, 10)
+shape = SubResource("RectangleShape2D_hw47t")

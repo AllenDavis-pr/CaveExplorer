@@ -13,10 +13,11 @@ size = Vector2(36, 36)
 script = ExtResource("1_ofn8l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.6, 0.239216, 0.254902, 1)
+modulate = Color(0.921851, 0.785167, 0.130501, 1)
 texture = ExtResource("2_qvr33")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_chmke")
 
 [node name="PathTimer" type="Timer" parent="."]
@@ -24,6 +25,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="BulletDetector" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector"]
 shape = SubResource("RectangleShape2D_rwijr")

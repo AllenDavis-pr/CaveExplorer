@@ -1,26 +1,22 @@
 using Godot;
 using System;
 
-public partial class EnemyGenerator : Node
+public partial class TreasureGenerator : Node
 {
     [Export]
-    private PackedScene enemyScene { get; set; } // Reference to the Enemy scene
+    private PackedScene treasureScene { get; set; } // Reference to the Enemy scene
 
     [Export]
     private CaveGenerator caveGenerator { get; set; } // Reference to the cave generator
 
-	
     [Export]
-    private Player player { get; set; } // Reference to the player
-
-    [Export]
-    private int enemyCount = 4; // Number of enemies to spawn
+    private int treasureCount = 4; // Number of enemies to spawn
 
     public override void _Ready()
     {
         Random random = new Random();
 
-        for (int i = 0; i < enemyCount; i++)
+        for (int i = 0; i < treasureCount; i++)
         {
             int x2, y2;
 
@@ -33,14 +29,13 @@ public partial class EnemyGenerator : Node
             while (caveGenerator.IsWall(x2, y2)); // Ensure it’s not a wall
 
             // Instantiate the enemy
-            Enemy newEnemy = (Enemy)enemyScene.Instantiate();
-			newEnemy.SetCaveGenerator(caveGenerator);
-			newEnemy.SetPlayerRef(player);
-            AddChild(newEnemy); // Add to the scene tree
+            Node2D newTreasure = (Node2D)treasureScene.Instantiate();
+            AddChild(newTreasure); // Add to the scene tree
 
             // Set enemy position
-            Vector2I enemyPosition = new Vector2I(x2, y2);
-            newEnemy.SetGridPosition(enemyPosition);
+            Vector2I treasurePosition = new Vector2I(x2 * CaveGenerator.CELL_SIZE, y2 * CaveGenerator.CELL_SIZE);
+        	newTreasure.Position = treasurePosition;
+
         }
     }
 }

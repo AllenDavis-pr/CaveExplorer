@@ -29,7 +29,7 @@ public class Pathfinder
     // Djikstra implementation
     public List<Vector2I> FindPath(Vector2I startPosition, Vector2I endPosition)
     {
-        var priorityQueue = new PriorityQueue<Vector2I, int>(); // Min-heap
+        var priorityQueue = new PriorityQueue<Vector2I, int>(); 
         var cameFrom = new Dictionary<Vector2I, Vector2I>();
         var costSoFar = new Dictionary<Vector2I, int>();
 
@@ -73,7 +73,8 @@ public class Pathfinder
         return new List<Vector2I>();
     }
 
-    private List<Vector2I> ReconstructPath(Dictionary<Vector2I, Vector2I> cameFrom, Vector2I start, Vector2I end)
+    private List<Vector2I> ReconstructPath(Dictionary<Vector2I, Vector2I> cameFrom, 
+        Vector2I start, Vector2I end)
     {
         var path = new List<Vector2I>();
         Vector2I current = end;

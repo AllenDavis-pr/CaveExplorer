@@ -1,0 +1,142 @@
+[gd_scene load_steps=6 format=3 uid="uid://c55vohwc1e2op"]
+
+[ext_resource type="Script" path="res://scenes/MainMenu.cs" id="1_drpul"]
+[ext_resource type="Texture2D" uid="uid://bls3q22svnhv3" path="res://assets/art/square.png" id="3_sesaf"]
+[ext_resource type="Texture2D" uid="uid://cdpp06u0xw7di" path="res://assets/art/Guns/SawedOffShotgun.png" id="4_23jmx"]
+[ext_resource type="FontFile" uid="uid://cefm86mf5hjvv" path="res://assets/fonts/Courier_Prime/CourierPrime-Bold.ttf" id="5_2pss5"]
+
+[sub_resource type="Theme" id="Theme_83rup"]
+default_font = ExtResource("5_2pss5")
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("playButton", "exitButton", "settingsButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_drpul")
+playButton = NodePath("")
+exitButton = NodePath("")
+settingsButton = NodePath("")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 649.0
+color = Color(0.839216, 0.854902, 0.827451, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(3.44, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 76.02
+offset_top = -91.0
+offset_right = 571.365
+offset_bottom = 91.0
+grow_vertical = 2
+alignment = 1
+
+[node name="sfx" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_83rup")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "SFX VOLUME:"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_83rup")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "MUSIC VOLUME:"
+
+[node name="sfx3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_83rup")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "MASTER VOLUME:"
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(135, 486)
+rotation = 2.79253
+scale = Vector2(-9.16, -9.16)
+metadata/_edit_group_ = true
+
+[node name="SpriteHolder" type="Sprite2D" parent="Player"]
+position = Vector2(-8.09756, 9.5)
+texture = ExtResource("3_sesaf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/SpriteHolder"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(10.8833, -6.32558)
+scale = Vector2(0.146875, 0.357649)
+texture = ExtResource("3_sesaf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Player/SpriteHolder"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1.28333, -6.32558)
+scale = Vector2(0.146875, 0.357649)
+texture = ExtResource("3_sesaf")
+
+[node name="Gun" type="Node2D" parent="Player"]
+position = Vector2(0, 10)
+
+[node name="M92" type="Sprite2D" parent="Player/Gun"]
+position = Vector2(7, 1)
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("4_23jmx")
+
+[node name="Muzzle" type="Node2D" parent="Player/Gun"]
+position = Vector2(31, -2)
+
+[node name="Player" type="CharacterBody2D" parent="Player"]
+position = Vector2(135, 486)
+rotation = 2.79253
+scale = Vector2(-9.16, -9.16)
+metadata/_edit_group_ = true
+
+[node name="SpriteHolder" type="Sprite2D" parent="Player/Player"]
+position = Vector2(-8.09756, 9.5)
+texture = ExtResource("3_sesaf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Player/SpriteHolder"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(10.8833, -6.32558)
+scale = Vector2(0.146875, 0.357649)
+texture = ExtResource("3_sesaf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Player/Player/SpriteHolder"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1.28333, -6.32558)
+scale = Vector2(0.146875, 0.357649)
+texture = ExtResource("3_sesaf")
+
+[node name="Gun" type="Node2D" parent="Player/Player"]
+position = Vector2(0, 10)
+
+[node name="M92" type="Sprite2D" parent="Player/Player/Gun"]
+position = Vector2(7, 1)
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("4_23jmx")
+
+[node name="Muzzle" type="Node2D" parent="Player/Player/Gun"]
+position = Vector2(31, -2)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -227.0
+offset_top = 54.0
+offset_right = 271.0
+offset_bottom = 172.0
+grow_horizontal = 2
+theme = SubResource("Theme_83rup")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "SETTINGS"
