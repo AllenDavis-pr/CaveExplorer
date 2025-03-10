@@ -17,7 +17,6 @@ public partial class PlayerInteract : Area2D
     {
 		targetObject = body.GetParent<Node2D>();
         targetObject.QueueFree();
-        player.treasuresFound++;
-        GD.Print("Treasures found: ",   player.treasuresFound);
+        player.TreasureFound();
     }
 }

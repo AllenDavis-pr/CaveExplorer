@@ -4,7 +4,7 @@ using System;
 public partial class Gun : Node2D
 {
 	[Export]
-    private PackedScene BulletScene { get; set; } // Reference to the Enemy scene
+    private PackedScene BulletScene { get; set; } // Reference to the bullet scene
 	[Export]
     private Node2D Muzzle { get; set; }
 

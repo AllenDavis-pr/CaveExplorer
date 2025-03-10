@@ -10,10 +10,18 @@ public partial class TreasureGenerator : Node
     private CaveGenerator caveGenerator { get; set; } // Reference to the cave generator
 
     [Export]
-    private int treasureCount = 4; // Number of enemies to spawn
+    private int treasureCount = 4; // Number of treasures to spawn
+
+    private int treasuresFound = 0;
+
+    [Export]
+    private Label treasureCounterLabel;
 
     public override void _Ready()
     {
+
+        UpdateTreasureLabelText();
+
         Random random = new Random();
 
         for (int i = 0; i < treasureCount; i++)
@@ -36,6 +44,20 @@ public partial class TreasureGenerator : Node
             Vector2I treasurePosition = new Vector2I(x2 * CaveGenerator.CELL_SIZE, y2 * CaveGenerator.CELL_SIZE);
         	newTreasure.Position = treasurePosition;
 
+        }
+    }
+
+    public void AddToCounter()
+    {
+        treasuresFound++;
+        UpdateTreasureLabelText();
+    }   
+
+    private void UpdateTreasureLabelText()
+    {
+        if (treasureCounterLabel != null)
+        {
+            treasureCounterLabel.Text = $"Treasures: [{treasuresFound}/{treasureCount}]";
         }
     }
 }

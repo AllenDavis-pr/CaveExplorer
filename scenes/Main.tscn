@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bx6utiyrwyiw5"]
+[gd_scene load_steps=14 format=3 uid="uid://bx6utiyrwyiw5"]
 
 [ext_resource type="Script" path="res://scripts/Main.cs" id="1_aydpn"]
 [ext_resource type="PackedScene" uid="uid://42ff5168376x" path="res://scenes/CaveGenerator.tscn" id="1_l1pu6"]
@@ -9,8 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://b3a5m5qtccchf" path="res://scenes/Treasure.tscn" id="7_ho4mp"]
 [ext_resource type="FontFile" uid="uid://cefm86mf5hjvv" path="res://assets/fonts/Courier_Prime/CourierPrime-Bold.ttf" id="8_qp2ys"]
 [ext_resource type="Script" path="res://scenes/TimerLabel.cs" id="9_0f2t4"]
+[ext_resource type="Script" path="res://scenes/PauseGame.cs" id="10_n2scp"]
 
 [sub_resource type="Theme" id="Theme_hovpi"]
+default_font = ExtResource("8_qp2ys")
+
+[sub_resource type="Theme" id="Theme_0xkso"]
+default_font = ExtResource("8_qp2ys")
+
+[sub_resource type="Theme" id="Theme_vnagj"]
 default_font = ExtResource("8_qp2ys")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("caveGenerator", "player")]
@@ -20,9 +27,11 @@ player = NodePath("Player")
 
 [node name="CaveGenerator" parent="." instance=ExtResource("1_l1pu6")]
 
-[node name="Player" parent="." node_paths=PackedStringArray("caveGenerator") instance=ExtResource("2_hbwqw")]
+[node name="Player" parent="." node_paths=PackedStringArray("caveGenerator", "treasureGenerator") instance=ExtResource("2_hbwqw")]
 position = Vector2(565, 328)
 caveGenerator = NodePath("../CaveGenerator")
+treasureGenerator = NodePath("../TreasureGenerator")
+sprintSpeed = 500
 
 [node name="EnemyGenerator" type="Node" parent="." node_paths=PackedStringArray("caveGenerator", "player")]
 script = ExtResource("5_42xsj")
@@ -31,19 +40,20 @@ caveGenerator = NodePath("../CaveGenerator")
 player = NodePath("../Player")
 enemyCount = 1
 
-[node name="TreasureGenerator" type="Node" parent="." node_paths=PackedStringArray("caveGenerator")]
+[node name="TreasureGenerator" type="Node" parent="." node_paths=PackedStringArray("caveGenerator", "treasureCounterLabel")]
 script = ExtResource("6_7au2r")
 treasureScene = ExtResource("7_ho4mp")
 caveGenerator = NodePath("../CaveGenerator")
-treasureCount = 100
+treasureCount = 10
+treasureCounterLabel = NodePath("../CanvasLayer/Control/TreasureCounter")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1138.0
-offset_bottom = 648.0
+anchor_right = 0.987847
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
 
 [node name="TimerLabel" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -60,6 +70,77 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "9:59"
 script = ExtResource("9_0f2t4")
+metadata/_edit_use_anchors_ = true
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Control/TimerLabel"]
 autostart = true
+
+[node name="TreasureCounter" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 228.0
+offset_top = 19.0
+offset_right = 554.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme = SubResource("Theme_hovpi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Treasures: [4/10]"
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Control/TreasureCounter"]
+autostart = true
+
+[node name="Healthbar" type="ProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 22.0
+offset_right = 243.0
+offset_bottom = 49.0
+theme = SubResource("Theme_0xkso")
+max_value = 10.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseGame" type="VBoxContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.5
+offset_top = -132.0
+offset_right = 162.5
+offset_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_n2scp")
+
+[node name="Resume" type="Button" parent="CanvasLayer/Control/PauseGame"]
+layout_mode = 2
+theme = SubResource("Theme_vnagj")
+theme_override_font_sizes/font_size = 48
+text = "RESUME"
+
+[node name="Exit" type="Button" parent="CanvasLayer/Control/PauseGame"]
+layout_mode = 2
+theme = SubResource("Theme_vnagj")
+theme_override_font_sizes/font_size = 48
+text = " EXIT GAME "
+
+[node name="Settings" type="Button" parent="CanvasLayer/Control/PauseGame"]
+layout_mode = 2
+theme = SubResource("Theme_vnagj")
+theme_override_font_sizes/font_size = 48
+text = "SETTINGS"
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/Control/PauseGame"]
+layout_mode = 2
+theme = SubResource("Theme_vnagj")
+theme_override_font_sizes/font_size = 48
+text = "MAIN MENU"

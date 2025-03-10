@@ -4,12 +4,13 @@ using System;
 public partial class MainMenu : Control
 {
 	[Export]
-    private Button playButton { get; set; } // Reference to the play button 
-	
+    private Button playButton { get; set; } 
+
 	[Export]
-    private Button exitButton { get; set; } // Reference to the exit butotn
+    private Button exitButton { get; set; }
+	 
 	[Export]
-    private Button settingsButton { get; set; } // Reference to the Enemy scene
+    private Button settingsButton { get; set; }
 
 
 	// Called when the node enters the scene tree for the first time.

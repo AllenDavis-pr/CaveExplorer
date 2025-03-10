@@ -32,5 +32,7 @@ public partial class TimerLabel : Label
     private void OnTimerTimeout()
     {
         Text = "0:00";
+        // Game Over
+        
     }
 }

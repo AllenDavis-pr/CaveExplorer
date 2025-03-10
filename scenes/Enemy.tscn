@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dn14lht1wd2my"]
+[gd_scene load_steps=7 format=3 uid="uid://dn14lht1wd2my"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_ofn8l"]
 [ext_resource type="Texture2D" uid="uid://bls3q22svnhv3" path="res://assets/art/square.png" id="2_qvr33"]
+[ext_resource type="PackedScene" uid="uid://b302e3lctdril" path="res://scenes/EnemyProjectile.tscn" id="2_uusma"]
+[ext_resource type="Texture2D" uid="uid://d3iro4rtnoch4" path="res://assets/art/Guns/MP5.png" id="3_leaqn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chmke"]
 size = Vector2(28, 28)
@@ -9,8 +11,14 @@ size = Vector2(28, 28)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rwijr"]
 size = Vector2(36, 36)
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("gun", "fireTimer", "muzzle")]
+collision_layer = 2
 script = ExtResource("1_ofn8l")
+gun = NodePath("Gun")
+fireTimer = NodePath("Gun/Timer")
+muzzle = NodePath("Gun/Gun/Muzzle")
+BulletScene = ExtResource("2_uusma")
+maxChaseDistance = 300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.921851, 0.785167, 0.130501, 1)
@@ -29,3 +37,16 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector"]
 shape = SubResource("RectangleShape2D_rwijr")
+
+[node name="Gun" type="Node2D" parent="."]
+
+[node name="Gun" type="Sprite2D" parent="Gun"]
+position = Vector2(38, -1)
+scale = Vector2(1.40037, 1.40037)
+texture = ExtResource("3_leaqn")
+
+[node name="Muzzle" type="Node2D" parent="Gun/Gun"]
+position = Vector2(10, -3)
+
+[node name="Timer" type="Timer" parent="Gun"]
+wait_time = 0.5

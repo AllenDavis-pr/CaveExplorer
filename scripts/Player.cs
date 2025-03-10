@@ -7,9 +7,15 @@ public partial class Player : CharacterBody2D
 	[Export]
 	private CaveGenerator caveGenerator { get; set; }
 
+		
+	[Export]
+	private TreasureGenerator treasureGenerator { get; set; }
 
 	[Export]
 	private int speed = 40;
+	[Export]
+	private int sprintSpeed = 80; // Sprinting speed
+
 
 	private Vector2I gridPosition;
 
@@ -28,7 +34,11 @@ public partial class Player : CharacterBody2D
         base._PhysicsProcess(delta);
 
 		Vector2 direction = Input.GetVector("left", "right", "up", "down");
-		Velocity = direction * speed;
+
+		bool isSprinting = Input.IsActionPressed("sprint");
+        int currentSpeed = isSprinting ? sprintSpeed : speed;
+        Velocity = direction * currentSpeed;
+
 		MoveAndSlide();
 		gridPosition = (Vector2I)(Position / CaveGenerator.CELL_SIZE);
 
@@ -63,10 +73,13 @@ public partial class Player : CharacterBody2D
 
     public void BulletCollidedWithTilemap(Vector2 position, Vector2 normal)
     {
-		if (true)
-		{
-			Vector2I tileGridPosition = (Vector2I)(position / CaveGenerator.CELL_SIZE);
-			caveGenerator.DestroyTile(tileGridPosition - (Vector2I)normal);
-		}
+		Vector2I tileGridPosition = (Vector2I)(position / CaveGenerator.CELL_SIZE);
+		caveGenerator.DestroyTile(tileGridPosition - (Vector2I)normal);
     } 
+
+	public void TreasureFound()
+	{
+		treasuresFound++;
+		treasureGenerator.AddToCounter();
+	}
 }
